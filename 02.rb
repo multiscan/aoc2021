@@ -70,7 +70,7 @@ class SubmarineTest < MiniTest::Test
 end
 
 
-if MiniTest.run                                # The Run/Kill Switch
+if MiniTest.run
   puts "Tests Passed!"
 
   data = load_data(2).lines()

@@ -52,7 +52,7 @@ class SonarTest < MiniTest::Test
 end
 
 
-if MiniTest.run                                # The Run/Kill Switch
+if MiniTest.run
   puts "Tests Passed!"
 
   data = load_data(1).split("\n").map{|v| v.to_i}
