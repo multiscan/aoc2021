@@ -5,15 +5,17 @@ require 'minitest/rg'
 
 require './aoc.rb'
 
-class Submarine
+class Submarine < BaseAOC
+  DAY = 2
   attr_reader :gamma, :epsilon, :power
-  def initialize()
+  def initialize(data)
+    @moves = data.lines()
     @d = 0
     @x = 0
   end
 
-  def play(v)
-    v.each {|s| move(s)}
+  def play()
+    @moves.each {|s| move(s)}
     # returns the final position/depth multiplied
     @d * @x
   end
@@ -33,9 +35,9 @@ class Submarine
 end
 
 class Submarine2 < Submarine
-  def initialize()
+  def initialize(data)
     @aim = 0
-    super
+    super(data)
   end
   def up(a)
     @aim = @aim - a
@@ -50,21 +52,12 @@ class Submarine2 < Submarine
 end
 
 class SubmarineTest < MiniTest::Test
-  TI = [
-    "forward 5",
-    "down 5",
-    "forward 8",
-    "up 3",
-    "down 8",
-    "forward 2",
-  ]
-
   def test_play
-    s = Submarine.new()
-    assert_equal 150, s.play(TI)
+    s = Submarine.from_test_data
+    assert_equal 150, s.play
 
-    s = Submarine2.new()
-    assert_equal 900, s.play(TI)
+    s = Submarine2.from_test_data
+    assert_equal 900, s.play
   end
 
 end
@@ -73,12 +66,11 @@ end
 if MiniTest.run
   puts "Tests Passed!"
 
-  data = load_data(2).lines()
-  s = Submarine.new
-  r1 = s.play(data)
+  s = Submarine.from_data
+  r1 = s.play
   puts "r1 = #{r1}"
 
-  s = Submarine2.new
-  r2 = s.play(data)
+  s = Submarine2.from_data
+  r2 = s.play
   puts "r2 = #{r2}"
 end

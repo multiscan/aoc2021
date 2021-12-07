@@ -40,7 +40,8 @@ class Line
   end
 end
 
-class Vents
+class Vents < BaseAOC
+  DAY=5
   def initialize(data, vhonly=false)
     @lines = data.lines.map { |l| Line.new(l) }
     if vhonly
@@ -67,28 +68,21 @@ class Vents
   end
 end
 
+class VHVents < Vents
+  def initialize(data)
+    super(data, true)
+  end
+end  
 
 class VentsTest < MiniTest::Test
-  TD1="""0,9 -> 5,9
-    8,0 -> 0,8
-    9,4 -> 3,4
-    2,2 -> 2,1
-    7,0 -> 7,4
-    6,4 -> 2,0
-    0,9 -> 2,9
-    3,4 -> 1,4
-    0,0 -> 8,8
-    5,5 -> 8,2
-"""
-
   def test_play
-    b = Vents.new(TD1, true)
+    b = VHVents.from_test_data
     assert_equal 6, b.count
     assert_equal ["0,9", "1,9", "2,9", "3,9", "4,9", "5,9"], b.line(0).trace
     assert_equal ["9,4", "8,4", "7,4", "6,4", "5,4", "4,4", "3,4"], b.line(1).trace
     assert_equal 5, b.count_dangerous_spots
 
-    b = Vents.new(TD1, false)
+    b = Vents.from_test_data
     assert_equal 10, b.count
     assert_equal 12, b.count_dangerous_spots
   end
@@ -97,12 +91,11 @@ end
 
 if MiniTest.run
   puts "Tests Passed!"
-  data = load_data(5)
-  v = Vents.new(data, true)
+  v = VHVents.from_data
   ds = v.count_dangerous_spots
   puts "Number of points where hv vents cross at least once: #{ds}"
 
-  v = Vents.new(data, false)
+  v = Vents.from_data
   ds = v.count_dangerous_spots
   puts "Number of points where any kind of vents cross at least once: #{ds}"
 end

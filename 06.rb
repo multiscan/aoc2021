@@ -5,9 +5,10 @@ require 'minitest/rg'
 
 require './aoc.rb'
 
-class LanternFishPopulation
-  def initialize(s)
-    @initial_state = s.split(",").map{|c| c.to_i}
+class LanternFishPopulation < BaseAOC
+  DAY=6
+  def initialize(data)
+    @initial_state = data.split(",").map{|c| c.to_i}
     reset()
   end
   def reset
@@ -34,14 +35,12 @@ class LanternFishPopulation
 end
 
 class LanternFishPopulationTest < MiniTest::Test
-  TD1="3,4,3,1,2"
-
   def test_initial_population
-    p = LanternFishPopulation.new(TD1)
+    p = LanternFishPopulation.from_test_data
     assert_equal 5, p.count
   end
   def test_after_few_days
-    p = LanternFishPopulation.new(TD1)
+    p = LanternFishPopulation.from_test_data
     p.step
     assert_equal 5, p.count
     p.step
@@ -52,12 +51,12 @@ class LanternFishPopulationTest < MiniTest::Test
     assert_equal 9, p.count
   end
   def test_after_18_days
-    p = LanternFishPopulation.new(TD1)
+    p = LanternFishPopulation.from_test_data
     18.times {p.step}
     assert_equal 26, p.count
   end
   def test_after_80_days
-    p = LanternFishPopulation.new(TD1)
+    p = LanternFishPopulation.from_test_data
     80.times {p.step}
     assert_equal 5934, p.count
   end
@@ -66,12 +65,11 @@ end
 
 if MiniTest.run
   puts "Tests Passed!"
-  data = load_data(6)
-  p = LanternFishPopulation.new(data)
+  p = LanternFishPopulation.from_data
   80.times{p.step}
   puts "After 80 days there are #{p.count} fish"
 
-  p = LanternFishPopulation.new(data)
+  p = LanternFishPopulation.from_data
   256.times{p.step}
   puts "After 256 days there are #{p.count} fish"
 

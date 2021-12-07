@@ -5,9 +5,10 @@ require 'minitest/rg'
 
 require './aoc.rb'
 
-class CrabAligner
-  def initialize(s)
-    @initial_positions = s.split(",").map{|sp| sp.to_i}
+class CrabAligner < BaseAOC
+  DAY=7
+  def initialize(data)
+    @initial_positions = data.split(",").map{|sp| sp.to_i}
     @ncrabs = @initial_positions.count
   end
   # very stupid algorithm but data size is small...
@@ -36,10 +37,8 @@ class CrabAligner
 end
 
 class CrabAlignerTest < MiniTest::Test
-  TD1="16,1,2,0,4,2,7,1,2,14"
-
   def test_align
-    p = CrabAligner.new(TD1)
+    p = CrabAligner.from_test_data
     assert_equal 37, p.align
     assert_equal 168, p.align("crab_cost")
   end
@@ -47,8 +46,7 @@ end
 
 if MiniTest.run
   puts "Tests Passed!"
-  data = load_data(7)
-  p = CrabAligner.new(data)
+  p = CrabAligner.from_data
   p.align
   p.align("crab_cost")
 end

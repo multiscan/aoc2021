@@ -5,7 +5,8 @@ require 'minitest/rg'
 
 require './aoc.rb'
 
-class Bingo
+class Bingo < BaseAOC
+  DAY=4
   attr_reader :winner, :last
   def initialize(data)
     l = data.lines
@@ -124,7 +125,7 @@ class BingoTest < MiniTest::Test
 
 
   def test_play
-    b = Bingo.new(TDATA1)
+    b = Bingo.from_test_data
     e = b.play()
     assert_equal true, e
     assert_equal 24, b.last
@@ -140,7 +141,7 @@ class BingoTest < MiniTest::Test
     assert_equal 13*148, b.score
   end
   def test_last
-    b = Bingo.new(TDATA1)
+    b = Bingo.from_test_data
     lc = b.last_card
     assert_equal 13, b.last
     assert_equal 148, lc.score
@@ -150,8 +151,7 @@ end
 
 if MiniTest.run
   puts "Tests Passed!"
-  data = load_data(4)
-  b = Bingo.new(data)
+  b = Bingo.from_data
   w = b.play()
   if w 
     puts "There is a winner. Score: #{b.score}"

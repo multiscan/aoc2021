@@ -5,10 +5,11 @@ require 'minitest/rg'
 
 require './aoc.rb'
 
-class Submarine
+class Submarine < BaseAOC
   attr_reader :gamma, :epsilon, :power
-  def initialize(d)
-    @diag = d.map{|s| s.split('').map{|v| v.to_i}}
+  DAY=3
+  def initialize(data)
+    @diag = data.lines().map{|l| l.strip }.map{|s| s.split('').map{|v| v.to_i}}
     nbits = @diag.first.count
     nwords = @diag.count
     nhw = nwords/2
@@ -70,23 +71,8 @@ class Submarine
 end
 
 class SubmarineTest < MiniTest::Test
-  TD = [
-    "00100",
-    "11110",
-    "10110",
-    "10111",
-    "10101",
-    "01111",
-    "00111",
-    "11100",
-    "10000",
-    "11001",
-    "00010",
-    "01010",
-  ]
-
   def test_diagnostics
-    s = Submarine.new(TD)
+    s = Submarine.from_test_data
     assert_equal 22, s.gamma
     assert_equal 9, s.epsilon
     assert_equal 198, s.power
@@ -100,8 +86,7 @@ end
 if MiniTest.run
   puts "Tests Passed!"
 
-  data = load_data(3).lines().map{|l| l.strip }
-  s = Submarine.new(data)
+  s = Submarine.from_data
   puts "power: #{s.power}"
 
   ogr = s.oxygen_generator_rating
