@@ -6,7 +6,7 @@ class BaseAOC
     data = load_file(fn)
     unless data
       data=download_data(day)
-      File.open(file, 'w') {|f| f.write(data)}
+      File.open(fn, 'w') {|f| f.write(data)}
     end
     self.new(data)
   end
@@ -17,6 +17,8 @@ class BaseAOC
     raise "Missing or unreadable test data file #{fn}" unless data
     self.new(data)
   end
+
+
 
  private
 
