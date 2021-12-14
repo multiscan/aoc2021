@@ -11,8 +11,8 @@ class BaseAOC
     self.new(data)
   end
 
-  def self.from_test_data(day=self::DAY)
-    fn = sprintf("testdata/%02d.d", day)
+  def self.from_test_data(postfix="", day=self::DAY)
+    fn = sprintf("testdata/%02d%s.d", day, postfix)
     data=load_file(fn)
     raise "Missing or unreadable test data file #{fn}" unless data
     self.new(data)
