@@ -43,12 +43,12 @@ end
 
 
 class SonarTest < MiniTest::Test
+  TA = "607 618 618 617 647 716 769 792".split(" ").map{|v| v.to_i}
   def test_count_increases
     s = Sonar.from_test_data
     assert_equal 7, s.count_increases
   end
   def test_sliding_sum
-    TA = "607 618 618 617 647 716 769 792".split(" ").map{|v| v.to_i}
     s = Sonar.from_test_data
     assert_equal TA, s.sliding_sum(3)
   end
