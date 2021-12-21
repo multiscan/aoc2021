@@ -1,3 +1,5 @@
+Dir[File.join(__dir__, 'lib', '*.rb')].each { |f| require f }
+
 require 'net/http'
 
 class BaseAOC
@@ -17,8 +19,6 @@ class BaseAOC
     raise "Missing or unreadable test data file #{fn}" unless data
     self.new(data)
   end
-
-
 
  private
 
