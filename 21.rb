@@ -305,6 +305,7 @@ class DiracGameTest < MiniTest::Test
   end
 end
 
+
 if MiniTest.run
   puts "Tests Passed!"
 
