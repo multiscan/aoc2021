@@ -18,3 +18,10 @@ To execute all the scripts, just run `./go.sh`. For a single script, pass the
 day number: `./go.sh DAYNUMBER`
 
 Quitz data will be automaticaly downloaded from the AOC website.
+
+#### Rust version
+
+I started this project with the idea of learning rust language. Due to lack of
+time, I ended up doing everything in ruby as last year. Still, some of the
+solutions will be translated into this language. In that case, add `--rust` to
+the wrapper script: `./go.sh --rust DAYNUMBER`
