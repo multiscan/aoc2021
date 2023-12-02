@@ -50,6 +50,8 @@ class Cavern < BaseAOC
 
   def optimal_path_cost
     path = dijkstra(@m, 0, @m.count-1)
+    ritorni = 0; path.each_with_index{|k,i| ritorni = ritorni + 1 if (i>1 && k < path[i-1])}
+    puts "path length: #{path.count}   ritorni=#{ritorni}"
     return path[1..].inject(0) {|s, k| s + @m.get(k)}
   end
 
